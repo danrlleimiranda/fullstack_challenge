@@ -13,6 +13,13 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "nodemon": "^3.0.2"
+    "mysql2": "^3.6.5",
+    "nodemon": "^3.0.2",
+    "sequelize": "^6.35.2"
+  },
+  "devDependencies": {
+    "eslint": "6.8.0",
+    "eslint-config-trybe-backend": "1.0.1",
+    "sequelize-cli": "^6.6.2"
   }
 }
