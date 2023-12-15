@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      district_id: {
+      districtId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         onDelete: 'CASCADE',
