@@ -13,33 +13,13 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      userId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        references: {
-          model: "users",
-          key: "id",
-        },
-      },
-      cityId: {
+      city_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
         references: {
           model: "cities",
-          key: "id",
-        },
-      },
-      districtId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        references: {
-          model: "districts",
           key: "id",
         },
       },

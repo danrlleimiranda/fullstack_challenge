@@ -11,16 +11,6 @@ const AddressModel = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        references: {
-          model: "users",
-          key: "id",
-        },
-      },
       cityId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -31,16 +21,6 @@ const AddressModel = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      districtId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        references: {
-          model: "districts",
-          key: "id",
-        },
-      }
     },
     {
       timestamps: false,

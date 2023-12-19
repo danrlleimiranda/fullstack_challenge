@@ -24,7 +24,7 @@ const DistrictModel = (sequelize, DataTypes) => {
       foreignKey: 'districtId', as: 'cities'
     })
 
-    District.hasMany(models.address, {
+    District.hasMany(models.Address, {
       foreignKey: 'districtId', as: 'addresses'
     })
   }
