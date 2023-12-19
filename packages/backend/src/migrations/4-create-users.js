@@ -9,9 +9,13 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      fullName: {
+      full_name: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      username: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       email: {
         type: Sequelize.STRING,
@@ -29,11 +33,21 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      registeredAt: {
+      address_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        references: {
+          model: 'addresses',
+          key: 'id'
+        }
+      },
+      registered_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updatedAt: {
+      updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },

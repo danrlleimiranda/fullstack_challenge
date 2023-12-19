@@ -9,6 +9,10 @@ const UserModel = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
           },
+          username: {
+            type: DataTypes.STRING,
+            allowNull: false,
+          },
           email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -20,6 +24,16 @@ const UserModel = (sequelize, DataTypes) => {
           admin: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
+          },
+          addressId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            references: {
+              model: 'addresses',
+              key: 'id'
+            }
           },
           image: {
             type: DataTypes.STRING,
@@ -35,10 +49,16 @@ const UserModel = (sequelize, DataTypes) => {
           },
     }, {
         timestamps: true,
-        createdAt: 'registeredAt',
+        createdAt: 'registered_at',
         underscored: true,
         tableName: 'users'
     })
+
+    User.associate = (models) => {
+      User.hasOne(models.Address, {
+        foreignKey: 'addressId', as: 'address'
+      })
+    }
 
     return User;
 }

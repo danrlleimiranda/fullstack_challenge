@@ -14,25 +14,15 @@ module.exports = {
         allowNull: false,
       },
       city_id: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        references: {
-          model: 'cities',
-          key: 'id',
-        }
-      },
-      user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
         references: {
-          model: 'users',
-          key: 'id',
-        }
-      }
+          model: "cities",
+          key: "id",
+        },
+      },
     });
   },
 
