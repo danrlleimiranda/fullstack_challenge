@@ -10,7 +10,7 @@ module.exports = {
      }, {
       id: 2,
       district: 'São Paulo'
-     }], {});
+     }], {timestamps: false});
     
   },
 

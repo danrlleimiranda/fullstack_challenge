@@ -33,16 +33,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      address_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-        references: {
-          model: 'addresses',
-          key: 'id'
-        }
-      },
       registered_at: {
         type: Sequelize.DATE,
         allowNull: false,

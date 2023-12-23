@@ -13,6 +13,16 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
       city_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -23,6 +33,16 @@ module.exports = {
           key: "id",
         },
       },
+      district_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+        references: {
+          model: "districts",
+          key: "id",
+        },
+      }
     });
   },
 

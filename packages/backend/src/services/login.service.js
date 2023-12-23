@@ -22,10 +22,10 @@ const validateLogin = async ({ username, password }) => {
     return { status: 401, data: { message: "user/password is wrong" } };
 
   const jwtConfig = {
-    expiresIn: "7d",
+    expiresIn: "1d",
     algorithm: "HS256",
   };
-  const token = jwt.sign({ data: { userId: user.id } }, secret, jwtConfig);
+  const token = jwt.sign({ data: { userId: user.id, admin: user.admin } }, secret, jwtConfig);
 
   return { status: 200, data: { token } };
 };

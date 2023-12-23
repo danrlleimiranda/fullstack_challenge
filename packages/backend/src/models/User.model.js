@@ -25,16 +25,6 @@ const UserModel = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             allowNull: false,
           },
-          addressId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-            references: {
-              model: 'addresses',
-              key: 'id'
-            }
-          },
           image: {
             type: DataTypes.STRING,
             allowNull: true,
@@ -49,14 +39,14 @@ const UserModel = (sequelize, DataTypes) => {
           },
     }, {
         timestamps: true,
-        createdAt: 'registered_at',
+        createdAt: 'registeredAt',
         underscored: true,
         tableName: 'users'
     })
 
     User.associate = (models) => {
       User.hasOne(models.Address, {
-        foreignKey: 'addressId', as: 'address'
+        foreignKey: 'userId', as: 'address'
       })
     }
 
