@@ -15,7 +15,7 @@ const DistrictModel = (sequelize, DataTypes) => {
     {
       timestamps: false,
       underscored: true,
-      tableName: "cities",
+      tableName: "districts",
     }
   );
 

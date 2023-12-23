@@ -13,6 +13,7 @@ module.exports = {
       city: 'San Fierro',
       district_id: 2
     }], {
+      timestamps: false
     });
     
   },
