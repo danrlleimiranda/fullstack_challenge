@@ -8,17 +8,19 @@ module.exports = {
       [
         {
           id: 1,
-          address: 'Rua dos bobos, 0',
+          street: 'Rua dos bobos',
+          number: 0,
           user_id: 1,
-          city_id: 2,
-          district_id: 2
+          city: 'San Fierro',
+          district: 'São Paulo'
         },
         {
           id: 2,
-          address: 'Groove Street, 171',
+          street: 'Groove Street',
+          number: 171,
           user_id: 2,
-          city_id: 1,
-          district_id: 1,
+          city: 'Los Santos',
+          district: 'Bahia',
         },
       ],
       {

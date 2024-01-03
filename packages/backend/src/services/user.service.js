@@ -1,5 +1,10 @@
-const { User, Address, District, City, sequelize } = require("../models");
+const { User, Address } = require("../models");
 const { validateNewUser } = require("./validations/validateInputValues");
+const Sequelize = require("sequelize");
+const config = require("../config/config");
+
+const env = process.env.NODE_ENV || "development";
+const sequelize = new Sequelize(config[env]);
 
 const getById = async (id) => {
   const user = await User.findOne({
@@ -8,10 +13,6 @@ const getById = async (id) => {
     include: {
       model: Address,
       as: "address",
-      include: [
-        { model: District, as: "district" },
-        { model: City, as: "city" },
-      ],
     },
   });
 
@@ -23,15 +24,10 @@ const getAll = async (id) => {
     include: {
       model: Address,
       as: "address",
-      attributes: ["address"],
-      include: [
-        { model: City, as: "city", attributes: ["city"] },
-        { model: District, as: "district", attributes: ["district"] },
-      ],
     },
     order: [
       sequelize.literal(
-        `(CASE WHEN User.id = ${id} THEN 0 ELSE 1 END), User.id DESC`
+        `(CASE WHEN User.id = ${id} THEN 0 ELSE 1 END), User.id ASC`
       ),
     ],
   });
@@ -46,29 +42,109 @@ const createNewUser = async ({
   password,
   admin,
   image,
+  city,
+  street,
+  number,
+  district,
 }) => {
-  const error = validateNewUser({
-    fullName,
-    username,
-    email,
-    password,
+
+
+  const result = await sequelize.transaction(async (t) => {
+    const newUser = await User.create(
+      {
+        fullName,
+        username,
+        email,
+        password,
+        admin: admin === "false" ? false : true,
+        image,
+      },
+      { transaction: t }
+    );
+
+    await Address.create(
+      {
+        city,
+        street,
+        number: Number(number),
+        userId: newUser.id,
+        district,
+      },
+      { transaction: t }
+    );
+
+    return newUser;
   });
 
-  if (error) return { status: error.status, data: error.data };
+  return { status: 201, data: result };
+};
 
-  const newUser = await User.create({
-    fullName,
-    username,
-    email,
-    password,
-    admin: admin === "false" ? false : true,
-    image,
+const updateUser = async ({
+  id,
+  fullName,
+  username,
+  password,
+  city,
+  street,
+  number,
+  district,
+}) => {
+  const user = await User.findOne({
+    where: {
+      id,
+      password,
+    },
   });
 
-  return {status: 201, data: newUser}
+  if (!user) return { status: 401, data: { message: 'Senha incorreta' } };
+
+  const result = await sequelize.transaction(async (t) => {
+    const updatedUser = await User.update(
+      {
+        fullName,
+        username,
+      },
+      {
+        where: {
+          id,
+        },
+      },
+      { transaction: t }
+    );
+
+    await Address.update(
+      {
+        city,
+        street,
+        number: Number(number),
+        district,
+      },
+      {
+        where: {
+          userId: user.id,
+        },
+      },
+      { transaction: t }
+    );
+
+    return updatedUser;
+  });
+
+  return { status: 200, data: result };
+};
+
+const deleteUser = async (id) => {
+  await User.destroy({
+    where: {
+      id,
+    },
+  });
+  return { status: 204 };
 };
 module.exports = {
   getById,
   getAll,
-  createNewUser
+  createNewUser,
+  deleteUser,
+  updateUser,
 };

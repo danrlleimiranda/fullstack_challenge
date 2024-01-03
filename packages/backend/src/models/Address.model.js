@@ -7,39 +7,25 @@ const AddressModel = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      address: {
+      street: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      number: {
+        type: DataTypes.INTEGER,
+        allowNull: false
       },
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        references: {
-          model: "users",
-          key: "id",
-        },
       },
-      cityId: {
-        type: DataTypes.INTEGER,
+      city: {
+        type: DataTypes.STRING,
         allowNull: false,
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        references: {
-          model: "cities",
-          key: "id",
-        },
       },
-      districtId: {
-        type: DataTypes.INTEGER,
+      district: {
+        type: DataTypes.STRING,
         allowNull: false,
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        references: {
-          model: "districts",
-          key: "id",
-        },
       }
     },
     {
@@ -53,13 +39,6 @@ const AddressModel = (sequelize, DataTypes) => {
     Address.belongsTo(models.User, {
       foreignKey: 'userId', as: 'user'
     })
-    Address.belongsTo(models.City, {
-      foreignKey: 'cityId', as: 'city'
-    })
-    Address.belongsTo(models.District, {
-      foreignKey: 'districtId', as: 'district'
-    })
-    
   }
 
   return Address;

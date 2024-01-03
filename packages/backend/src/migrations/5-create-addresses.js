@@ -9,9 +9,13 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      address: {
+      street: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      number: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       user_id: {
         type: Sequelize.INTEGER,
@@ -23,25 +27,14 @@ module.exports = {
           key: "id",
         },
       },
-      city_id: {
-        type: Sequelize.INTEGER,
+      city: {
+        type: Sequelize.STRING,
         allowNull: false,
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        references: {
-          model: "cities",
-          key: "id",
-        },
       },
-      district_id: {
-        type: Sequelize.INTEGER,
+      district: {
+        type: Sequelize.STRING,
         allowNull: false,
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        references: {
-          model: "districts",
-          key: "id",
-        },
+
       }
     });
   },
