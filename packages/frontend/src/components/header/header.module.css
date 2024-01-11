@@ -9,5 +9,9 @@
 
 .header img {
     width: 10rem;
-    margin-left: 20px;
+    margin-left: 1.5rem;
+}
+
+.header button {
+    margin-right: 1.5rem;
 }

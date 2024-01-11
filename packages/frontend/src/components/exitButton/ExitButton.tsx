@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 export default function ExitButton() {
@@ -7,6 +8,16 @@ export default function ExitButton() {
     navigate('/');
   };
   return (
-    <button onClick={ handleClick } className="btn btn-primary">Sair</button>
+    <Button
+      type="button"
+      size="medium"
+      color="primary"
+      variant="contained"
+      onClick={ handleClick }
+    >
+      Sair
+
+    </Button>
+
   );
 }

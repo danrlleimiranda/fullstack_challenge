@@ -1,9 +1,15 @@
 .modal {
-    position: absolute;
-    top: 0px;
-    right: 40%;
-    background-color: white;
-    z-index: 1;
-    padding: 40px;
-    border-radius: 10px;
+  position: fixed;
+  top: 20rem;
+  background-color: white;
+  right: 25rem;
+  left: 25rem;
+  z-index: 1;
+  padding: 40px;
+  border-radius: 10px;
+  transform: translate(0, 0);
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: all 1s ease;
 }

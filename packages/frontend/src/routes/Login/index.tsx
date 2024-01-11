@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Box, Button, IconButton, InputAdornment, TextField } from '@mui/material';
+import { AccountCircle } from '@mui/icons-material';
 import axios from '../../utils/fetch';
 import style from './login.module.css';
+import aeternusLogo from '../../assets/aeternus-high-resolution-logo-transparent.svg';
 
 function Login() {
   const navigate = useNavigate();
@@ -13,13 +18,14 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, checked } = event.target;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement
+  | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
 
     setFormData((prevState) => {
       return {
         ...prevState,
-        [name]: name === 'showPassword' ? checked : value,
+        [name]: value,
       };
     });
   };
@@ -60,72 +66,92 @@ function Login() {
       setIsLoading(false);
       navigate('/home');
     } catch (err: any) {
-      setIsLoading(false);
+      if (err.response) {
+        setIsLoading(false);
 
-      // setErrorMessage(err.response);
+        setErrorMessage(err.response.data.message);
+      }
     }
   };
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   if (isLoading) return (<p>Loading...</p>);
 
   return (
-    <form onSubmit={ (e) => handleSubmit(e) }>
-      { errorMessage && <p>{ errorMessage }</p>}
-      <div className="mb-3">
-        <label htmlFor="username" className="form-label">
-          Username:
-          <input
-            type="text"
-            value={ formData.username }
-            name="username"
+    <div className={ style.login }>
+      <Box
+        sx={ { display: 'flex',
+          alignItems: 'flex-start',
+          gap: '1rem',
+          width: '100%',
+          flexDirection: 'column',
+          justifyContent: 'center' } }
+      >
+        <img src={ aeternusLogo } alt="" className={ style.logo } />
+        <form onSubmit={ (e) => handleSubmit(e) } className={ style.form }>
+          <TextField
             id="username"
+            error={ errorMessage !== '' }
+            name="username"
+            label="Username"
+            helperText={ errorMessage }
             onChange={ (e) => handleChange(e) }
-            className="form-control form-control-lg"
+            InputProps={ {
+              endAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle color="primary" />
+                </InputAdornment>
+              ),
+            } }
+            variant="standard"
           />
-        </label>
-      </div>
-      <div className="mb-3">
-        <label htmlFor="password" className="form-label">
-          Password:
-          <input
-            type={ formData.showPassword ? 'text' : 'password' }
-            value={ formData.password }
-            name="password"
+
+          <TextField
             id="password"
+            name="password"
+            error={ errorMessage !== '' }
             onChange={ (e) => handleChange(e) }
-            className="form-control form-control-lg"
+            fullWidth
+            label="Password"
+            value={ formData.password }
+            type={ showPassword ? 'text' : 'password' }
+            InputProps={ {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    color="primary"
+                    onClick={ handleClickShowPassword }
+                    onMouseDown={ handleMouseDownPassword }
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            } }
+            variant="standard"
           />
-        </label>
-      </div>
+          <div className={ style.buttons }>
+            <Button
+              type="submit"
+              size="medium"
+              color="primary"
+              variant="contained"
+            >
+              Sign in
 
-      <div className="mb-3 form-check">
-        <label htmlFor="showPassword" className="form-check-label">
-          { formData.showPassword ? 'Hide' : 'Show' }
-          {' '}
-          password
-
-          <input
-            type="checkbox"
-            name="showPassword"
-            checked={ formData.showPassword }
-            id="showPassword"
-            onChange={ (e) => handleChange(e) }
-            className="form-check-input"
-          />
-        </label>
-      </div>
-      <div className={ style.buttons }>
-        <button type="submit" className="btn btn-success">Sign in</button>
-        <button
-          type="button"
-          onClick={ () => navigate('/signup') }
-          className="btn btn-success"
-        >
-          Sign up
-
-        </button>
-      </div>
-    </form>
+            </Button>
+          </div>
+        </form>
+      </Box>
+    </div>
   );
 }
 

@@ -56,109 +56,96 @@ export default function EditUser({ data }: EditUserProps) {
   };
 
   return (
-    <div>
-      <form action="" onSubmit={ (e) => handleSubmit(e) }>
 
-        <label htmlFor="fullName">
-          Nome completo:
-          <input
-            type="text"
-            name="fullName"
-            id={ form.fullName }
-            className="form-control"
-            value={ form.fullName }
-            onChange={ (e) => handleChange(e) }
-          />
-        </label>
+    <form action="" onSubmit={ (e) => handleSubmit(e) }>
 
-        <label htmlFor="username">
-          Nome de usuário:
-          <input
-            type="text"
-            name="username"
-            id={ form.username }
-            className="form-control"
-            value={ form.username }
-            onChange={ (e) => handleChange(e) }
-          />
-        </label>
+      <label htmlFor="fullName">
+        Nome completo:
+        <input
+          type="text"
+          name="fullName"
+          id={ form.fullName }
+          className="form-control"
+          value={ form.fullName }
+          onChange={ (e) => handleChange(e) }
+        />
+      </label>
 
-        <label htmlFor="district" className="form-label">
-          Selecione um estado:
-          <select
-            id={ form.district }
-            name="district"
-            defaultValue={ form.district }
-            onChange={ (e) => handleChange(e) }
-            className="form-select form-select-sm"
-          >
-            <option value="" disabled>Selecione um estado</option>
-            {estadosBrasileiros.map((estado) => (
-              <option key={ estado } value={ estado }>{ estado }</option>
-            ))}
-          </select>
-        </label>
+      <label htmlFor="username">
+        Nome de usuário:
+        <input
+          type="text"
+          name="username"
+          id={ form.username }
+          className="form-control"
+          value={ form.username }
+          onChange={ (e) => handleChange(e) }
+        />
+      </label>
 
-        <label htmlFor="city">
-          Cidade:
-          <input
-            type="text"
-            name="city"
-            id={ form.city }
-            value={ form.city }
-            onChange={ (e) => handleChange(e) }
-          />
-        </label>
+      <label htmlFor="district" className="form-label">
+        Selecione um estado:
+        <select
+          id={ form.district }
+          name="district"
+          defaultValue={ form.district }
+          onChange={ (e) => handleChange(e) }
+          className="form-select form-select-sm"
+        >
+          <option value="" disabled>Selecione um estado</option>
+          {estadosBrasileiros.map((estado) => (
+            <option key={ estado } value={ estado }>{ estado }</option>
+          ))}
+        </select>
+      </label>
 
-        <label htmlFor="street">
-          Endereço:
-          <input
-            type="text"
-            name="street"
-            id={ form.street }
-            value={ form.street }
-            onChange={ (e) => handleChange(e) }
-          />
-        </label>
+      <label htmlFor="city">
+        Cidade:
+        <input
+          type="text"
+          name="city"
+          id={ form.city }
+          value={ form.city }
+          onChange={ (e) => handleChange(e) }
+        />
+      </label>
 
-        <label htmlFor="number">
-          Número:
-          <input
-            type="text"
-            name="number"
-            id={ form.number }
-            value={ form.number }
-            onChange={ (e) => handleChange(e) }
-          />
-        </label>
+      <label htmlFor="street">
+        Endereço:
+        <input
+          type="text"
+          name="street"
+          id={ form.street }
+          value={ form.street }
+          onChange={ (e) => handleChange(e) }
+        />
+      </label>
 
-        <label htmlFor="email">
-          Email:
-          <input
-            type="email"
-            name="email"
-            id={ form.email }
-            onChange={ (e) => handleChange(e) }
-            disabled
-            value={ form.email }
-          />
-        </label>
-        <div>
-          <label htmlFor="password" className="form-label">
-            Senha:
-            <input
-              type="password"
-              name="password"
-              onChange={ (e) => handleChange(e) }
-              id={ form.password }
-              value={ form.password }
-              className="form-control"
-            />
-          </label>
-        </div>
+      <label htmlFor="number">
+        Número:
+        <input
+          type="text"
+          name="number"
+          id={ form.number }
+          value={ form.number }
+          onChange={ (e) => handleChange(e) }
+        />
+      </label>
 
-        <button disabled={ isValid() }>Confirmar alterações</button>
-      </form>
-    </div>
+      <label htmlFor="email">
+        Email:
+        <input
+          type="email"
+          name="email"
+          id={ form.email }
+          onChange={ (e) => handleChange(e) }
+          disabled
+          value={ form.email }
+        />
+      </label>
+
+      <button disabled={ isValid() }>Confirmar alterações</button>
+    </form>
+
   );
 }

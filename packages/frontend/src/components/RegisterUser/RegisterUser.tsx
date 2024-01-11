@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
+import { Button } from '@mui/material';
 import axios from '../../utils/fetch';
 import useForms from '../../hooks/useForms';
 import { estadosBrasileiros } from '../../utils/data';
@@ -75,17 +76,21 @@ export default function RegisterUser() {
   return (
     <div className={ style.btn }>
       {isActive && (
-        <button
+
+        <Button
           type="button"
+          size="medium"
+          color="primary"
+          variant="contained"
           onClick={ () => {
             setNewUser(!newUser);
             setIsActive(!isActive);
           } }
-          className="btn btn-success"
         >
           Cadastrar novo usuário
 
-        </button>)}
+        </Button>
+      )}
       {newUser && (
         <form action="" onSubmit={ (e) => handleSubmit(e) } className={ style.container }>
           <button

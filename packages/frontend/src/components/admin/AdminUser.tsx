@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 import fetch from '../../utils/fetch';
 import { DataType } from '../../types/types';
 import RegisterUser from '../RegisterUser/RegisterUser';
@@ -23,12 +24,29 @@ export default function AdminUser({ data }: AdminUserProps) {
 
   const handleDelete = async (id: number) => {
     const token = localStorage.getItem('token') || '';
-    await fetch.delete(`/delete-user/${id}`, {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(token)}`,
-      },
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await fetch.delete(`/delete-user/${id}`, {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(token)}`,
+          },
+        });
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Your file has been deleted.',
+          icon: 'success',
+        });
+        window.location.reload();
+      }
     });
-    window.location.reload();
   };
 
   const handleClick = (user: DataType) => {
@@ -40,7 +58,7 @@ export default function AdminUser({ data }: AdminUserProps) {
 
   return (
     <main className="main-div">
-
+      {isEditing.isEditing && <div className="overlay" />}
       <div className="card first-card">
         <button onClick={ () => handleClick(data[0]) } aria-label="edit">
           <img src={ pencil } alt="" />
@@ -109,7 +127,7 @@ export default function AdminUser({ data }: AdminUserProps) {
 
           index > 0 && (
             <div className="other-card" key={ user.id }>
-              <div>
+              <div className="btn-group">
                 <button onClick={ () => handleClick(user) } aria-label="edit">
                   <img src={ pencil } alt="" />
                 </button>
@@ -164,6 +182,7 @@ export default function AdminUser({ data }: AdminUserProps) {
               {(isEditing.isEditing
             && user.id === isEditing.id) && (
               <div className={ editStyle.modal }>
+
                 <button
                   onClick={ () => setIsEditing({
                     id: user.id,
